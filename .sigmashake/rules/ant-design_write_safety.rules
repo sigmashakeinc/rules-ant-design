@@ -14,7 +14,7 @@ rule ant-design-legacy-form-create {
   enabled true
   priority 80
   severity warning
-  ASK write
+  LOG write
   IF path GLOB "**/*.(js|jsx|ts|tsx)" AND content CONTAINS "Form.create("
   MESSAGE "Detected usage of Ant Design v3 'Form.create()'. This Higher-Order Component (HOC) API is deprecated in Ant Design v4 and later. Please migrate to the modern 'Form' component and 'useForm' hook for improved maintainability, better performance, and full compatibility with React hooks. Using legacy APIs can lead to unexpected behavior, compatibility issues, or missed security updates in newer environments."
 }
@@ -32,7 +32,7 @@ rule ant-design-deprecated-moment-js-usage {
   enabled true
   priority 70
   severity warning
-  ASK write
+  LOG write
   IF path GLOB "**/*.(js|jsx|ts|tsx)" AND (content CONTAINS "import moment from 'moment'" OR content CONTAINS "moment(" AND NOT content CONTAINS "dayjs().format")
   MESSAGE "Detected usage of 'moment.js'. While not a direct security vulnerability, 'moment.js' is considered a legacy library with a larger bundle size and mutable objects that can lead to subtle bugs. Ant Design and the React community generally recommend 'dayjs' or native 'Date' objects for date/time handling. Consider migrating to 'dayjs' for better performance, smaller bundle size, and modern immutable date practices."
 }
@@ -50,7 +50,7 @@ rule ant-design-input-password-visibility-toggle-disabled {
   enabled true
   priority 60
   severity warning
-  ASK write
+  LOG write
   IF path GLOB "**/*.(js|jsx|ts|tsx)" AND content CONTAINS "<Input.Password" AND content CONTAINS "visibilityToggle={false}"
   MESSAGE "Detected 'Input.Password' with 'visibilityToggle' explicitly set to 'false'. Disabling the password visibility toggle can negatively impact user experience and make it harder for users to verify their input, potentially leading to mistyped passwords and account lockouts. It is generally recommended to keep this feature enabled (which is the default behavior) to improve usability and reduce user frustration."
 }
